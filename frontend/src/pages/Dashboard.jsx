@@ -120,12 +120,13 @@ export default function Dashboard() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="mb-10"
+          className="mb-10 p-8 glass rounded-3xl glow border-border/50 relative overflow-hidden"
         >
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
           <h1 className="text-4xl md:text-5xl font-black text-foreground mb-3 tracking-tight">
-            Welcome back
+            Welcome back <span className="gradient-text">Pilot</span>
           </h1>
-          <p className="text-lg text-muted-foreground font-medium">Track your applications, enhance resumes, and land your dream job.</p>
+          <p className="text-lg text-muted-foreground font-medium max-w-2xl">Your career dashboard is ready. Track applications, enhance resumes, and land your dream job with AI insights.</p>
         </motion.div>
 
         {loading ? (
@@ -298,14 +299,15 @@ export default function Dashboard() {
                 </div>
 
                 {trackedJobs.length === 0 ? (
-                  <div className="rounded-[2rem] bg-card/50 border border-border text-center py-16 backdrop-blur-sm">
-                    <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Briefcase className="w-8 h-8 text-muted-foreground" />
+                  <div className="rounded-[2rem] glass border border-primary/20 text-center py-16 glow relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10 animate-bounce">
+                      <Briefcase className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">No applications yet</h3>
-                    <p className="text-muted-foreground text-sm mb-6 max-w-xs mx-auto font-medium">Start searching for jobs to track your applications</p>
-                    <Link to="/jobs">
-                      <Button variant="primary" className="font-bold px-8">Search Jobs</Button>
+                    <h3 className="text-xl font-bold text-foreground mb-2 relative z-10">No applications yet</h3>
+                    <p className="text-muted-foreground text-sm mb-6 max-w-xs mx-auto font-medium relative z-10">Start searching for jobs to track your applications</p>
+                    <Link to="/jobs" className="relative z-10">
+                      <Button variant="primary" className="font-bold px-8 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all-300 hover:-translate-y-0.5">Search Jobs</Button>
                     </Link>
                   </div>
                 ) : (
@@ -363,14 +365,15 @@ export default function Dashboard() {
                 </div>
 
                 {resumes.length === 0 ? (
-                  <div className="rounded-[2rem] bg-card/50 border border-border text-center py-16 backdrop-blur-sm">
-                    <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <FileText className="w-8 h-8 text-muted-foreground" />
+                  <div className="rounded-[2rem] glass border border-primary/20 text-center py-16 glow relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent"></div>
+                    <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10 animate-bounce">
+                      <FileText className="w-8 h-8 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">No resumes yet</h3>
-                    <p className="text-muted-foreground text-sm mb-6 max-w-xs mx-auto font-medium">Upload your resume to get AI-powered enhancements</p>
-                    <Link to="/upload">
-                      <Button variant="primary" className="font-bold px-8">Upload Resume</Button>
+                    <h3 className="text-xl font-bold text-foreground mb-2 relative z-10">No resumes yet</h3>
+                    <p className="text-muted-foreground text-sm mb-6 max-w-xs mx-auto font-medium relative z-10">Upload your resume to get AI-powered enhancements</p>
+                    <Link to="/upload" className="relative z-10">
+                      <Button variant="primary" className="font-bold px-8 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all-300 hover:-translate-y-0.5">Upload Resume</Button>
                     </Link>
                   </div>
                 ) : (

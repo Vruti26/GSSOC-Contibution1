@@ -83,8 +83,8 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-      ? 'bg-background/80 backdrop-blur-xl border-b border-border'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all-300 ${scrolled
+      ? 'glass border-b border-border shadow-sm'
       : 'bg-transparent'
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,9 +107,9 @@ export default function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(path)
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all-300 ${isActive(path)
                   ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted hover:-translate-y-0.5'
                   }`}
               >
                 <Icon className="w-4 h-4" />
@@ -122,9 +122,9 @@ export default function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(path)
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all-300 ${isActive(path)
                   ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted hover:-translate-y-0.5'
                   }`}
               >
                 <Icon className="w-4 h-4" />
@@ -183,7 +183,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/register"
-                  className="px-5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20"
+                  className="px-5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg text-sm font-bold transition-all-300 shadow-lg shadow-primary/20 hover:-translate-y-0.5 hover:shadow-primary/40"
                 >
                   Get Started
                 </Link>
