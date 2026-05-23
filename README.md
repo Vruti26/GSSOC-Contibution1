@@ -296,7 +296,7 @@ New contributors and reviewers should read **[ARCHITECTURE.md](./ARCHITECTURE.md
 
 ```env
 # Server
-PORT=5000
+PORT=5001
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
 
@@ -337,7 +337,7 @@ RAZORPAY_KEY_SECRET=your-razorpay-secret
 # LinkedIn OAuth
 LINKEDIN_CLIENT_ID=your-linkedin-client-id
 LINKEDIN_CLIENT_SECRET=your-linkedin-client-secret
-LINKEDIN_REDIRECT_URI=http://localhost:5000/api/auth/linkedin/callback
+LINKEDIN_REDIRECT_URI=http://localhost:5001/api/auth/linkedin/callback
 
 # Two-Factor Authentication
 TOTP_ENCRYPTION_KEY=your-32-char-encryption-key
@@ -354,7 +354,7 @@ OPENAI_API_KEY=your-openai-api-key
 #### Frontend (.env)
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_API_URL=http://localhost:5001
 VITE_FIREBASE_API_KEY=your-api-key
 VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=your-project-id
@@ -415,8 +415,8 @@ npm run dev
 6. **Access the application**
 
 - Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
-- Health Check: http://localhost:5000/health
+- Backend API: http://localhost:5001
+- Health Check: http://localhost:5001/health
 
 ### Quick API checks (cURL)
 
@@ -424,14 +424,14 @@ With the backend running locally:
 
 ```bash
 # Health check (no auth)
-curl -s http://localhost:5000/health | jq
+curl -s http://localhost:5001/health | jq
 
 # Authenticated route example (replace TOKEN with a Firebase ID token)
 curl -s -H "Authorization: Bearer TOKEN" \
-  http://localhost:5000/api/auth/verify | jq
+  http://localhost:5001/api/auth/verify | jq
 ```
 
-In [Postman](https://www.postman.com/), create a GET request to `http://localhost:5000/health`, or set **Authorization → Bearer Token** for protected `/api/*` routes. See [API_DOCS/README.md](./API_DOCS/README.md) for the full route list.
+In [Postman](https://www.postman.com/), create a GET request to `http://localhost:5001/health`, or set **Authorization → Bearer Token** for protected `/api/*` routes. See [API_DOCS/README.md](./API_DOCS/README.md) for the full route list.
 
 ---
 
@@ -573,126 +573,298 @@ career-pilot/
 
 ## 🔌 API Routes
 
-### Authentication
 
-| Method | Endpoint            | Description           |
-| ------ | ------------------- | --------------------- |
-| `POST` | `/api/auth/verify`  | Verify Firebase token |
-| `GET`  | `/api/auth/profile` | Get user profile      |
+This section provides practical API usage examples with authentication, requests, responses, and error handling.
 
-### Upload
+# 🔐 Authentication (Required for Protected Routes)
 
-| Method | Endpoint                   | Description                 |
-| ------ | -------------------------- | --------------------------- |
-| `POST` | `/api/upload`              | Upload and parse PDF resume |
-| `POST` | `/api/upload/extract-text` | Extract text from PDF       |
+Most endpoints require a Firebase ID Token.
 
-### Resume Management
+Authorization Header:
+```bash
+Authorization: Bearer <FIREBASE_ID_TOKEN>
+```
 
-| Method   | Endpoint                          | Description          |
-| -------- | --------------------------------- | -------------------- |
-| `GET`    | `/api/resumes`                    | Get all user resumes |
-| `GET`    | `/api/resumes/:resumeId`          | Get specific resume  |
-| `POST`   | `/api/resumes`                    | Create new resume    |
-| `PUT`    | `/api/resumes/:resumeId`          | Update resume        |
-| `DELETE` | `/api/resumes/:resumeId`          | Delete resume        |
-| `GET`    | `/api/resumes/:resumeId/download` | Download as PDF      |
+# 🔎 Verify Token
 
-### AI Enhancement
+Endpoint:
+```bash
+GET /api/auth/verify
+```
 
-| Method | Endpoint                    | Description                   |
-| ------ | --------------------------- | ----------------------------- |
-| `POST` | `/api/enhance`              | Enhance resume with AI        |
-| `POST` | `/api/enhance/summary`      | Generate professional summary |
-| `POST` | `/api/enhance/suggestions`  | Get improvement suggestions   |
-| `POST` | `/api/enhance/ats-analysis` | Analyze ATS compatibility     |
+Request:
+```bash
+curl -X GET http://localhost:5000/api/auth/verify \
+-H "Authorization: Bearer <TOKEN>"
+```
 
-### Job Search
+Success Response:
+```json
+{
+  "success": true,
+  "message": "Token verified successfully",
+  "user": {
+    "uid": "user123",
+    "email": "user@example.com"
+  }
+}
+```
 
-| Method | Endpoint         | Description     |
-| ------ | ---------------- | --------------- |
-| `GET`  | `/api/fetchjobs` | Search for jobs |
+Error Response (401):
+```json
+{
+  "success": false,
+  "message": "Unauthorized - No token provided"
+}
+```
 
-### Job Alerts
+# 📄 Resume Upload
 
-| Method   | Endpoint                        | Description          |
-| -------- | ------------------------------- | -------------------- |
-| `GET`    | `/api/job-alerts`               | Get all alerts       |
-| `GET`    | `/api/job-alerts/stats/summary` | Get alert statistics |
-| `GET`    | `/api/job-alerts/:id`           | Get specific alert   |
-| `POST`   | `/api/job-alerts`               | Create new alert     |
-| `PUT`    | `/api/job-alerts/:id`           | Update alert         |
-| `DELETE` | `/api/job-alerts/:id`           | Delete alert         |
+Endpoint:
+```bash
+POST /api/upload
+```
 
-### Job Tracker
+Request:
+```bash
+curl -X POST http://localhost:5000/api/upload \
+-H "Authorization: Bearer <TOKEN>" \
+-F "file=@resume.pdf"
+```
 
-| Method   | Endpoint                      | Description             |
-| -------- | ----------------------------- | ----------------------- |
-| `GET`    | `/api/job-tracker`            | Get all tracked jobs    |
-| `GET`    | `/api/job-tracker/stats`      | Get tracking statistics |
-| `POST`   | `/api/job-tracker`            | Track new job           |
-| `PUT`    | `/api/job-tracker/:trackerId` | Update job status       |
-| `DELETE` | `/api/job-tracker/:trackerId` | Remove tracked job      |
+Success Response:
+```json
+{
+  "success": true,
+  "message": "Resume uploaded successfully",
+  "data": {
+    "resumeId": "res123",
+    "extractedText": "Software Engineer with experience in Node.js..."
+  }
+}
+```
 
-### Community
+Error Response:
+```json
+{
+  "success": false,
+  "message": "Invalid file format"
+}
+```
 
-| Method | Endpoint                                      | Description          |
-| ------ | --------------------------------------------- | -------------------- |
-| `GET`  | `/api/community/channels`                     | Get all channels     |
-| `POST` | `/api/community/channels`                     | Create channel       |
-| `GET`  | `/api/community/channels/:channelId/messages` | Get channel messages |
-| `GET`  | `/api/community/posts`                        | Get all posts        |
-| `POST` | `/api/community/posts`                        | Create post          |
-| `POST` | `/api/community/posts/:postId/like`           | Toggle like          |
-| `GET`  | `/api/community/posts/:postId/comments`       | Get comments         |
-| `POST` | `/api/community/posts/:postId/comments`       | Add comment          |
-| `GET`  | `/api/community/conversations`                | Get DM conversations |
-| `GET`  | `/api/community/online-users`                 | Get online users     |
+# 🤖 AI Resume Enhancement
 
-### Fellowships
+Endpoint:
+```bash
+POST /api/enhance
+```
 
-| Method   | Endpoint                                      | Description                   |
-| -------- | --------------------------------------------- | ----------------------------- |
-| `GET`    | `/api/fellowship/profile`                     | Get fellowship profile        |
-| `POST`   | `/api/fellowship/profile`                     | Create/update profile         |
-| `POST`   | `/api/fellowship/verify/send-email`           | Send verification email       |
-| `POST`   | `/api/fellowship/verify/confirm`              | Confirm verification code     |
-| `GET`    | `/api/fellowship/challenges`                  | Get all challenges            |
-| `POST`   | `/api/fellowship/challenges`                  | Create challenge (Corporate)  |
-| `GET`    | `/api/fellowship/challenges/:id`              | Get challenge details         |
-| `DELETE` | `/api/fellowship/challenges/:id`              | Delete challenge              |
-| `POST`   | `/api/fellowship/challenges/:id/apply`        | Apply to challenge (Student)  |
-| `GET`    | `/api/fellowship/challenges/:id/proposals`    | Get proposals for challenge   |
-| `PUT`    | `/api/fellowship/proposals/:id/status`        | Accept/reject proposal        |
-| `GET`    | `/api/fellowship/my-challenges`               | Get my challenges (Corporate) |
-| `GET`    | `/api/fellowship/my-proposals`                | Get my proposals (Student)    |
-| `GET`    | `/api/fellowship/chat/rooms`                  | Get chat rooms                |
-| `GET`    | `/api/fellowship/chat/rooms/:roomId`          | Get chat room details         |
-| `GET`    | `/api/fellowship/chat/rooms/:roomId/messages` | Get messages                  |
-| `POST`   | `/api/fellowship/chat/rooms/:roomId/messages` | Send message                  |
+Request:
+```bash
+curl -X POST http://localhost:5000/api/enhance \
+-H "Authorization: Bearer <TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{
+  "resumeText": "JavaScript developer with React experience",
+  "jobRole": "Frontend Engineer"
+}'
+```
 
-### Interview Prep
+Success Response:
+```json
+{
+  "success": true,
+  "atsScore": 88,
+  "enhancedResume": "Optimized ATS-friendly resume content...",
+  "suggestions": [
+    "Add TypeScript experience",
+    "Highlight performance optimization skills"
+  ]
+}
+```
 
-| Method | Endpoint                      | Description           |
-| ------ | ----------------------------- | --------------------- |
-| `POST` | `/api/interview/start`        | Start mock interview  |
-| `POST` | `/api/interview/:id/answer`   | Submit answer         |
-| `POST` | `/api/interview/:id/complete` | Complete interview    |
-| `GET`  | `/api/interview/:id`          | Get interview details |
-| `GET`  | `/api/interview/history`      | Get interview history |
+# 📊 ATS Analysis
 
-### Payments
+Endpoint:
+```bash
+POST /api/enhance/ats-analysis
+```
 
-| Method | Endpoint                              | Description                      |
-| ------ | ------------------------------------- | -------------------------------- |
-| `POST` | `/api/payments/create-order`          | Create Razorpay order            |
-| `POST` | `/api/payments/verify-payment`        | Verify payment & accept proposal |
-| `POST` | `/api/payments/release-funds/:roomId` | Release escrow funds             |
-| `GET`  | `/api/payments/status/:roomId`        | Get payment status               |
+Request:
+```bash
+curl -X POST http://localhost:5000/api/enhance/ats-analysis \
+-H "Authorization: Bearer <TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{
+  "resumeText": "Full Stack Developer with Node and React"
+}'
+```
 
-> 📚 **For complete API documentation, see [API_DOCS/README.md](./API_DOCS/README.md)**
+Success Response:
+```json
+{
+  "success": true,
+  "atsScore": 79,
+  "keywordsMatched": ["React", "Node.js"],
+  "missingKeywords": ["Docker", "AWS"]
+}
+```
 
----
+# 🔔 Job Alerts
+
+Endpoint:
+```bash
+POST /api/job-alerts
+```
+
+Request:
+```bash
+curl -X POST http://localhost:5000/api/job-alerts \
+-H "Authorization: Bearer <TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{
+  "keywords": "Backend Developer",
+  "location": "Remote",
+  "salaryMin": 60000,
+  "jobType": "Full-time"
+}'
+```
+
+Success Response:
+```json
+{
+  "success": true,
+  "message": "Job alert created successfully",
+  "alert": {
+    "id": "alert123",
+    "keywords": "Backend Developer",
+    "frequency": "0 0 */2 * *"
+  }
+}
+```
+
+# 🔎 Job Search
+
+Endpoint:
+```bash
+GET /api/fetchjobs
+```
+
+Request:
+```bash
+curl -X GET "http://localhost:5000/api/fetchjobs?query=frontend%20developer&location=remote"
+```
+
+Success Response:
+```json
+{
+  "success": true,
+  "results": [
+    {
+      "title": "Frontend Developer",
+      "company": "Tech Corp",
+      "location": "Remote",
+      "applyLink": "https://company.com/apply"
+    }
+  ]
+}
+```
+
+# 📌 Job Tracker
+
+Endpoint:
+```bash
+POST /api/job-tracker
+```
+
+Request:
+```bash
+curl -X POST http://localhost:5000/api/job-tracker \
+-H "Authorization: Bearer <TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{
+  "jobTitle": "Backend Engineer",
+  "company": "Google",
+  "status": "Applied"
+}'
+```
+
+Success Response:
+```json
+{
+  "success": true,
+  "message": "Job tracked successfully",
+  "tracker": {
+    "id": "track123",
+    "status": "Applied"
+  }
+}
+```
+
+# 🎓 Fellowship Module
+
+Endpoint:
+```bash
+POST /api/fellowship/challenges
+```
+
+Request:
+```bash
+curl -X POST http://localhost:5000/api/fellowship/challenges \
+-H "Authorization: Bearer <TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "Build AI Chatbot",
+  "description": "Create a chatbot using GPT",
+  "budget": 1000
+}'
+```
+
+Success Response:
+```json
+{
+  "success": true,
+  "challengeId": "ch123",
+  "status": "Open"
+}
+```
+
+# ❌ Common Error Responses
+
+## 400 Bad Request
+```json
+{
+  "success": false,
+  "message": "Invalid request payload"
+}
+```
+
+## 401 Unauthorized
+```json
+{
+  "success": false,
+  "message": "Unauthorized - Invalid or missing token"
+}
+```
+
+## 429 Rate Limit
+```json
+{
+  "success": false,
+  "message": "Too many requests. Please try again later."
+}
+```
+
+## 500 Internal Server Error
+```json
+{
+  "success": false,
+  "message": "Unexpected server error"
+}
+```
+
+
+
 
 ## 🎯 Feature Details
 
