@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
 
 /**
@@ -17,7 +17,7 @@ export function ThemeProvider({ children }) {
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
     const root = window.document.documentElement;
     const nextTheme = theme === 'dark' ? 'dark' : 'light';
