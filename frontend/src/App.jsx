@@ -4,8 +4,6 @@
  */
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import StockTicker from "./components/portfolio/templates/Finance_Corporate/StockTicker";
-
-import React, { useState, useEffect } from 'react';
 import Deployments from './pages/Deployments'
 import TemplateGallery from "./pages/TemplateGallery";
 
