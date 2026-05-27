@@ -9,11 +9,14 @@ import Hero from "../components/portfolio/templates/Holographic/Hero";
 import CulinaryAbout from "../components/portfolio/templates/Culinary_Restaurant/About";
 import TechStartupHero from "../components/portfolio/templates/Tech_Startup/Hero";
 import GeometricShapesAbout from "../components/portfolio/templates/Geometric_Shapes/About";
+import DragPortfolio from "../components/portfolio/templates/Drag_Portfolio";
 import ChooseAdventurePortfolio from "../components/portfolio/templates/Choose_Adventure/index";
+import WeatherMood from "../components/portfolio/templates/Weather_Mood/index";
 import RetroProjects from "../components/portfolio/templates/2D_Retro_8bit/Projects";
 import FantasyRPGProjects from "../components/portfolio/templates/Fantasy_RPG/Projects";
 import Navbar from '../components/Navbar'
 import GraffitiHero from "../components/portfolio/templates/Graffiti_StreetArt/Hero";
+import ComicBookProjects from "../components/portfolio/templates/Comic_Book/Projects";
 
 
 function FilterSelect({ value, onChange, options, className = "" }) {
@@ -446,6 +449,18 @@ export default function TemplateGallery() {
           <ChooseAdventurePortfolio />
         </div>
       </div>
+
+      <div className="mt-12">
+        <div className="mb-4 flex items-center gap-3 px-1">
+          <span className="rounded-full bg-sky-500/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-sky-400 border border-sky-500/30">
+            Preview
+          </span>
+          <h2 className="text-lg font-semibold text-foreground/70">Weather Mood Theme — Full Interactive Template</h2>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <WeatherMood />
+        </div>
+      </div>
       <div className="mt-12">
         <div className="mb-4 flex items-center gap-3 px-1">
           <span className="rounded-full bg-pink-500/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-pink-400 border border-pink-500/30">
@@ -457,6 +472,20 @@ export default function TemplateGallery() {
         </div>
         <div className="overflow-hidden rounded-2xl border border-border">
           <GraffitiHero />
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div className="mb-4 flex items-center gap-3 px-1">
+          <span className="rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-cyan-400 border border-cyan-500/30">
+            Preview
+          </span>
+          <h2 className="text-lg font-semibold text-foreground/70">
+            Drag Portfolio Theme — Digital Canvas Preview
+          </h2>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <DragPortfolio />
         </div>
       </div>
 
