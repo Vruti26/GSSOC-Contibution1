@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { X, Image as ImageIcon, Hash, Send, Clock, FileText } from 'lucide-react';
+import { X, Image as ImageIcon, Hash, Send, Clock, FileText, Link as LinkIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import SchedulePost from './SchedulePost';
 

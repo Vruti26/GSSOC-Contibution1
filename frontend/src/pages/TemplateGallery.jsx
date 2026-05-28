@@ -11,13 +11,18 @@ import ArchitectureBlueprintHero from "../components/portfolio/templates/Archite
 import GeometricShapesAbout from "../components/portfolio/templates/Geometric_Shapes/About";
 import GeometricShapesHero from "../components/portfolio/templates/Geometric_Shapes/Hero";
 import LiquidGlass from "../components/portfolio/templates/Liquid_Glass/index";
+<<<<<<< feat/midnight-gradient-template
 import MidnightGradient from "../components/portfolio/templates/Midnight_Gradient/index";
+=======
+import PlayingCardsPortfolio from "../components/portfolio/templates/Playing_Cards";
+>>>>>>> main
 import Navbar from '../components/Navbar'
+import { X } from "lucide-react";
 // import Hero from "../components/portfolio/templates/Holographic/Hero";
 // import ChooseAdventurePortfolio from "../components/portfolio/templates/Choose_Adventure/index";
 // import RetroProjects from "../components/portfolio/templates/2D_Retro_8bit/Projects";
 // import FantasyRPGProjects from "../components/portfolio/templates/Fantasy_RPG/Projects";
-// import GraffitiHero from "../components/portfolio/templates/Graffiti_StreetArt/Hero";
+import GraffitiHero from "../components/portfolio/templates/Graffiti_StreetArt/Hero";
 
 
 function FilterSelect({ value, onChange, options, className = "" }) {
@@ -167,8 +172,8 @@ function TemplateCard({ template, onUse }) {
 
         <AnimatePresence>
           {hovered && (
-            <motion.button
-              key="cta"
+            <motion.div
+              key="cta-group"
               initial={{ opacity: 0, y: 14 }}
               animate={{
                 opacity: 1, y: 0,
@@ -178,13 +183,21 @@ function TemplateCard({ template, onUse }) {
                 opacity: 0, y: 10,
                 transition: { duration: 0.16, ease: "easeIn" },
               }}
-              whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => onUse(template.title)}
-              className="w-full bg-primary text-primary-foreground py-2.5 rounded-xl font-semibold text-sm cursor-pointer"
+              className="flex gap-2 w-full mt-4"
             >
-              Use This Theme
-            </motion.button>
+              <button
+                onClick={(e) => { e.stopPropagation(); onUse(template.title); }}
+                className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-xl font-semibold text-sm cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform"
+              >
+                Use Theme
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); onUse(template.id, true); }}
+                className="flex-1 bg-muted text-foreground border border-border py-2.5 rounded-xl font-semibold text-sm cursor-pointer hover:bg-accent hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                <Eye className="w-4 h-4" /> Preview
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
@@ -192,47 +205,56 @@ function TemplateCard({ template, onUse }) {
   );
 }
 
+import { templates } from '../data/templates';
+import React, { Suspense, useMemo } from 'react';
+
+const TemplatePreviewModal = ({ templateId, isOpen, onClose }) => {
+  const Component = useMemo(() => {
+    if (!templateId) return null;
+    return React.lazy(() => 
+      import(`../components/portfolio/templates/${templateId}/Hero.jsx`).catch(() => 
+        import(`../components/portfolio/templates/${templateId}/index.jsx`)
+      )
+    );
+  }, [templateId]);
+
+  if (!isOpen || !templateId) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-xl flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 bg-card/80 border-b border-border shadow-sm">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
+            {templateId.replace(/_/g, ' ')} Preview
+          </h2>
+          <span className="px-3 py-1 text-xs font-medium rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            Live Demo
+          </span>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-2 text-muted-foreground hover:text-foreground bg-muted hover:bg-accent rounded-xl transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+      <div className="flex-1 overflow-y-auto relative bg-background">
+        <Suspense fallback={
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground gap-4">
+            <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+            <p className="animate-pulse font-medium tracking-wide text-sm uppercase">Loading interactive preview...</p>
+          </div>
+        }>
+          {Component && <Component />}
+        </Suspense>
+      </div>
+    </div>
+  );
+};
+
 export default function TemplateGallery() {
   const { theme, toggleTheme } = useTheme();
-
-  const templates = [
-    {
-      id: 1,
-      title: "Modern Portfolio",
-      category: "Portfolio",
-      colorScheme: "Dark",
-      layout: "Grid",
-      author: "Alex Johnson",
-      views: 1200,
-      rating: 4.8,
-      image: "/template-previews/Modern-Portfolio.png",
-      createdAt: "2026-05-10",
-    },
-    {
-      id: 2,
-      title: "Minimal Resume",
-      category: "Resume",
-      colorScheme: "Light",
-      layout: "Minimal",
-      author: "Sarah Lee",
-      views: 980,
-      rating: 4.6,
-      image: "/template-previews/Minimal-Resume.png",
-      createdAt: "2026-05-18",
-    },
-    {
-      id: 3,
-      title: "Creative Dashboard",
-      category: "Dashboard",
-      colorScheme: "Colorful",
-      layout: "Cards",
-      author: "Michael",
-      views: 2100,
-      rating: 4.9,
-      image: "/template-previews/Creative-Dashboard.png",
-      createdAt: "2026-05-15",
-    },
-  ];
+  const [previewTemplateId, setPreviewTemplateId] = useState(null);
 
   const [category, setCategory] = useState("All");
   const [colorScheme, setColorScheme] = useState("All");
@@ -332,14 +354,18 @@ export default function TemplateGallery() {
           No templates match the selected criteria.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {sortedTemplates.map((template) => (
             <TemplateCard
               key={template.id}
               template={template}
-              onUse={(title) => {
-                setSelectedPortfolioTitle(title);
-                setIsDeployModalOpen(true);
+              onUse={(val, isPreview) => {
+                if (isPreview) {
+                  setPreviewTemplateId(val);
+                } else {
+                  setSelectedPortfolioTitle(val);
+                  setIsDeployModalOpen(true);
+                }
               }}
             />
           ))}
@@ -430,6 +456,7 @@ export default function TemplateGallery() {
         </div>
       </div>
 
+<<<<<<< feat/midnight-gradient-template
       {/* Midnight Gradient */}
       <div className="mt-12">
         <div className="mb-4 flex items-center gap-3 px-1">
@@ -440,6 +467,18 @@ export default function TemplateGallery() {
         </div>
         <div className="overflow-hidden rounded-2xl border border-border">
           <MidnightGradient />
+=======
+      {/* Playing Cards Theme */}
+      <div className="mt-12">
+        <div className="mb-4 flex items-center gap-3 px-1">
+          <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/30">
+            🃟 NEW — Playing Cards
+          </span>
+          <h2 className="text-lg font-semibold text-foreground/70">Playing Cards Theme — Click to flip, shuffle deck</h2>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-emerald-500/20">
+          <PlayingCardsPortfolio />
+>>>>>>> main
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { Github, Heart, Leaf, Linkedin, Mail, MapPin, Mountain, TreePine, Twitter } from "lucide-react";
+import { GithubIcon, Heart, Leaf, Linkedin, Mail, MapPin, Mountain, TreePine, Twitter } from "lucide-react";
 
 const skills = ["React", "Node.js", "TypeScript", "Python", "Tailwind CSS", "MongoDB", "GraphQL", "Docker"];
 
@@ -79,7 +79,7 @@ export default function About() {
             </p>
             <div className="flex flex-wrap gap-2">
               {links.map(({ icon: Icon, label, href }) => (
-                
+                <a
                   key={label}
                   href={href}
                   className="flex items-center gap-2 bg-green-900/40 border border-green-700/50 text-green-300 hover:bg-green-700/50 hover:text-white transition-all duration-300 px-4 py-2 rounded-full text-sm"
