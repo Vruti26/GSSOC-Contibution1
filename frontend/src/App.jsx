@@ -57,6 +57,7 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 import OpenRouterCallback from './pages/OpenRouterCallback';
 import LegalPageErrorBoundary from './components/LegalPageErrorBoundary';
+import RouteErrorBoundary from './components/RouteErrorBoundary';
 
 // Hub Imports
 import ResumeHub from './pages/hubs/ResumeHub';
@@ -70,6 +71,7 @@ const RepoAnalyzerDashboard = lazy(() => import('./pages/RepoAnalyzer/Dashboard'
 const RepoAnalyzerWorkspace = lazy(() => import('./pages/RepoAnalyzer/Workspace'));
 import ScrollToTop from "./components/ScrollToTop";
 import RainforestCanopy from './components/portfolio/templates/Rainforest_Canopy/index.jsx';
+
 import TestSocialLinks from './pages/TestSocialLinks';
 
 function ProtectedRoute({ children }) {
@@ -178,9 +180,10 @@ function AppRoutes() {
         <Route path="/cookies" element={<LegalPageErrorBoundary><Suspense fallback={null}><CookiePolicy /></Suspense></LegalPageErrorBoundary>} />
 
         {/* Template Gallery Route (Registered at /templates) */}
-        <Route path="/templates" element={<TemplateGallery />} />
+        <Route path="/templates" element={<RouteErrorBoundary><TemplateGallery /></RouteErrorBoundary>} />
         <Route path="/templates/chatbot" element={<ChatbotPortfolio />} />
         <Route path="/templates/gamified-xp" element={<GamifiedXP />} />
+        
         {/* Core Protected Routes */}
         <Route 
   path="/dashboard" 
