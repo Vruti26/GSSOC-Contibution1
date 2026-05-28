@@ -231,11 +231,14 @@ export default function FigmaCanvas() {
     setExpandedLayers((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
+  const [isPanning, setIsPanning] = useState(false);
+  const [spaceHeld, setSpaceHeld] = useState(false);
+
   const canvasRef = useRef(null);
-  const isPanning = useRef(false);
   const panStart = useRef({ x: 0, y: 0 });
   const panOrigin = useRef({ x: 0, y: 0 });
-  const spaceHeld = useRef(false);
+  // isPanningRef mirrors isPanning state for use inside non-reactive callbacks
+  const isPanningRef = useRef(false);
 
   const isHandTool = activeTool === 5;
 
@@ -290,16 +293,17 @@ export default function FigmaCanvas() {
   }, [handleWheel]);
 
   const handleMouseDown = useCallback((e) => {
-    if (e.button === 1 || isHandTool || spaceHeld.current) {
+    if (e.button === 1 || isHandTool || spaceHeld) {
       e.preventDefault();
-      isPanning.current = true;
+      isPanningRef.current = true;
+      setIsPanning(true);
       panStart.current = { x: e.clientX, y: e.clientY };
       panOrigin.current = { ...pan };
     }
-  }, [isHandTool, pan]);
+  }, [isHandTool, spaceHeld, pan]);
 
   const handleMouseMove = useCallback((e) => {
-    if (!isPanning.current) return;
+    if (!isPanningRef.current) return;
     const dx = e.clientX - panStart.current.x;
     const dy = e.clientY - panStart.current.y;
     setPan({
@@ -309,20 +313,22 @@ export default function FigmaCanvas() {
   }, []);
 
   const handleMouseUp = useCallback(() => {
-    isPanning.current = false;
+    isPanningRef.current = false;
+    setIsPanning(false);
   }, []);
 
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.code === 'Space' && !e.repeat) {
         e.preventDefault();
-        spaceHeld.current = true;
+        setSpaceHeld(true);
       }
     };
     const onKeyUp = (e) => {
       if (e.code === 'Space') {
-        spaceHeld.current = false;
-        isPanning.current = false;
+        setSpaceHeld(false);
+        isPanningRef.current = false;
+        setIsPanning(false);
       }
     };
     window.addEventListener('keydown', onKeyDown);
@@ -395,7 +401,7 @@ export default function FigmaCanvas() {
   const gridOffsetX = pan.x % gridSize;
   const gridOffsetY = pan.y % gridSize;
 
-  const cursorStyle = isPanning.current || spaceHeld.current || isHandTool
+  const cursorStyle = isPanning || spaceHeld || isHandTool
     ? 'grabbing' : 'default';
 
   const zoomPercent = Math.round(zoom * 100);
