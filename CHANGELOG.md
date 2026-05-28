@@ -1,3 +1,10 @@
+## [1.56.1](https://github.com/anurag3407/career-pilot/compare/v1.56.0...v1.56.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* add missing GraffitiHero import ([0a76ab3](https://github.com/anurag3407/career-pilot/commit/0a76ab3f7c5808eca263ce1be4128196a9ab5639))
+
 # [1.56.0](https://github.com/anurag3407/career-pilot/compare/v1.55.0...v1.56.0) (2026-05-28)
 
 
