@@ -1,3 +1,10 @@
+# [1.86.0](https://github.com/anurag3407/career-pilot/compare/v1.85.0...v1.86.0) (2026-05-29)
+
+
+### Features
+
+* implement CyberSecurity Hacker Hero section ([96854a1](https://github.com/anurag3407/career-pilot/commit/96854a1036bc8188b495752ee675cc3b9f6770b0))
+
 # [1.85.0](https://github.com/anurag3407/career-pilot/compare/v1.84.0...v1.85.0) (2026-05-29)
 
 
