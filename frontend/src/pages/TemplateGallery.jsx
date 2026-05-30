@@ -258,10 +258,10 @@ const TemplatePreviewModal = ({ templateId, isOpen, onClose, portfolioData }) =>
 };
 
 export default function TemplateGallery() {
-  const { theme, toggleTheme } = useTheme();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const previewTemplateId = searchParams.get("preview");
-  const [hoveredCard, setHoveredCard] = useState(null);
+const { theme, toggleTheme } = useTheme();
+const [searchParams, setSearchParams] = useSearchParams();
+const previewTemplateId = searchParams.get("preview");
+const [hoveredCard, setHoveredCard] = useState(null);
 
   const [category, setCategory] = useState("All");
   const [colorScheme, setColorScheme] = useState("All");
@@ -411,16 +411,16 @@ export default function TemplateGallery() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {sortedTemplates.map((template) => (
-            <TemplateCard
-              key={template.id}
-              template={template}
-              hovered={hoveredCard === template.id}
-              onHover={setHoveredCard}
-              onLeave={() => setHoveredCard(null)}
-              onUse={handleUseTemplate}
-              aiDraft={aiDraft}
-            />
-          ))}
+<TemplateCard
+  key={template.id}
+  template={template}
+  hovered={hoveredCard === template.id}
+  onHover={setHoveredCard}
+  onLeave={() => setHoveredCard(null)}
+  onUse={handleUseTemplate}
+  aiDraft={aiDraft}
+/>
+ ))}
         </div>
       )}
 
