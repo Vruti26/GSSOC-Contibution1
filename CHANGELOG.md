@@ -1,3 +1,15 @@
+# [1.116.0](https://github.com/anurag3407/career-pilot/compare/v1.115.0...v1.116.0) (2026-06-01)
+
+
+### Bug Fixes
+
+* update author to Advik Divekar in templates.js ([6e6fde0](https://github.com/anurag3407/career-pilot/commit/6e6fde0a4206b7e7d2d99f8fc51062fb2fc34210))
+
+
+### Features
+
+* implement Typewriter Effect portfolio template ([#1893](https://github.com/anurag3407/career-pilot/issues/1893)) ([c8ee815](https://github.com/anurag3407/career-pilot/commit/c8ee815bd03e6e26eb731b8371e5b1460d4de324)), closes [#F5F0E8](https://github.com/anurag3407/career-pilot/issues/F5F0E8)
+
 # [1.115.0](https://github.com/anurag3407/career-pilot/compare/v1.114.0...v1.115.0) (2026-06-01)
 
 
