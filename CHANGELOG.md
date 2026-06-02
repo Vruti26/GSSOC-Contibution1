@@ -1,3 +1,10 @@
+## [1.128.1](https://github.com/anurag3407/career-pilot/compare/v1.128.0...v1.128.1) (2026-06-02)
+
+
+### Bug Fixes
+
+* remove redundant 'cabe' typo dependency from package.json ([2651548](https://github.com/anurag3407/career-pilot/commit/26515488150f4d2ab1f2b2dec89deb28a47919c8))
+
 # [1.128.0](https://github.com/anurag3407/career-pilot/compare/v1.127.0...v1.128.0) (2026-06-02)
 
 
