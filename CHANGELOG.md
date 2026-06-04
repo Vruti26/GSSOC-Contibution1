@@ -1,3 +1,11 @@
+# [1.142.0](https://github.com/anurag3407/career-pilot/compare/v1.141.0...v1.142.0) (2026-06-04)
+
+
+### Features
+
+* add adaptive interview difficulty progression system ([0764b6f](https://github.com/anurag3407/career-pilot/commit/0764b6f11bfbae065fdd3076caa4353cc588019a))
+* add mock interview weakness analyzer and personalized insights ([df18f47](https://github.com/anurag3407/career-pilot/commit/df18f474ee2b4572f88a1544eb108fff6b487238))
+
 # [1.141.0](https://github.com/anurag3407/career-pilot/compare/v1.140.0...v1.141.0) (2026-06-04)
 
 
