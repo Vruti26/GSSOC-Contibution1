@@ -1,3 +1,113 @@
+# [1.148.0](https://github.com/anurag3407/career-pilot/compare/v1.147.0...v1.148.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* update Medium Article template improvements ([1ae5355](https://github.com/anurag3407/career-pilot/commit/1ae53555f06e2fc28437b7c18c87f9469a497d64))
+
+
+### Features
+
+* add Medium Article portfolio template ([2e645c9](https://github.com/anurag3407/career-pilot/commit/2e645c9a9d0c3f93c242a58b8a351f5363c8defb))
+
+# [1.147.0](https://github.com/anurag3407/career-pilot/compare/v1.146.0...v1.147.0) (2026-06-04)
+
+
+### Features
+
+* add CSRF protection middleware ([18494b1](https://github.com/anurag3407/career-pilot/commit/18494b1197878023f9fba3a7550f6b251f0d7137)), closes [#2762](https://github.com/anurag3407/career-pilot/issues/2762)
+
+# [1.146.0](https://github.com/anurag3407/career-pilot/compare/v1.145.2...v1.146.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* address CodeRabbit accessibility feedback ([2d0dca9](https://github.com/anurag3407/career-pilot/commit/2d0dca9e6822be74765c315dd3270305ce704ae2))
+* use compressionMiddleware from middleware file in index.js ([ec27830](https://github.com/anurag3407/career-pilot/commit/ec2783033802d52b3d53ed7026834ce06bac64ea))
+
+
+### Features
+
+* add API response compression middleware ([83c8e8f](https://github.com/anurag3407/career-pilot/commit/83c8e8fb9eb048c4064d020a289e42fc08f95240))
+* implement terminal CLI command history section ([133f9eb](https://github.com/anurag3407/career-pilot/commit/133f9ebc4dc181690f730fa3ef6e8cd864a497fb))
+* implement terminal CLI contact section ([10b0efb](https://github.com/anurag3407/career-pilot/commit/10b0efb4889e7db84fc1968e1827613097da09ae))
+
+## [1.145.2](https://github.com/anurag3407/career-pilot/compare/v1.145.1...v1.145.2) (2026-06-04)
+
+
+### Bug Fixes
+
+* **logging:** log presence-only config summary instead of raw env values ([6fdd893](https://github.com/anurag3407/career-pilot/commit/6fdd893cb3d5eaf9183c8aa660d4d6eb29d45947)), closes [#2884](https://github.com/anurag3407/career-pilot/issues/2884)
+
+## [1.145.1](https://github.com/anurag3407/career-pilot/compare/v1.145.0...v1.145.1) (2026-06-04)
+
+
+### Bug Fixes
+
+* **email:** validate email service configuration on startup ([17a15c1](https://github.com/anurag3407/career-pilot/commit/17a15c162dd2f8cc58c84c39e61942464fbf9277)), closes [#2883](https://github.com/anurag3407/career-pilot/issues/2883)
+
+# [1.145.0](https://github.com/anurag3407/career-pilot/compare/v1.144.0...v1.145.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* **ai-engine:** handle symbol-based keywords correctly ([9689adb](https://github.com/anurag3407/career-pilot/commit/9689adb425dac3c45f78e46db94aa8e9d279d25a))
+* **ai-engine:** improve keyword matching accuracy ([3520595](https://github.com/anurag3407/career-pilot/commit/352059547574f9ae165dc0096feff66c7579319a))
+
+
+### Features
+
+* **ai-engine:** implement AI-powered resume keyword optimizer ([6bc29ac](https://github.com/anurag3407/career-pilot/commit/6bc29acbbf3369449e0f31080c0dfdcf482a25cc))
+
+# [1.144.0](https://github.com/anurag3407/career-pilot/compare/v1.143.0...v1.144.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* **line-art:** clean shared helper import ([86d94de](https://github.com/anurag3407/career-pilot/commit/86d94de40ad1a17ce2b3d5481e2cba63c4c0c347))
+* **line-art:** import motion in shared helpers ([8c82b78](https://github.com/anurag3407/career-pilot/commit/8c82b784ecd3e11fb54d2111f5bb4fdc8dee84eb))
+
+
+### Features
+
+* add Line Art portfolio template split into sections ([c7278f2](https://github.com/anurag3407/career-pilot/commit/c7278f299ee8a79c20ece2f5dd823878c1c8d0b4))
+
+# [1.143.0](https://github.com/anurag3407/career-pilot/compare/v1.142.0...v1.143.0) (2026-06-04)
+
+
+### Features
+
+* implement Floating Cubes portfolio template ([#1866](https://github.com/anurag3407/career-pilot/issues/1866)) ([bc5223a](https://github.com/anurag3407/career-pilot/commit/bc5223a3f98373c2d6c75f0034f839eb3406c0e0))
+* implement modular Crystal Cavern 3D portfolio template ([3d009c0](https://github.com/anurag3407/career-pilot/commit/3d009c098cc444d3e3ee1b2f6b6bc7311d6426ed))
+* **portfolio:** implement Stagger Grid template with strict scroll physics ([4c8ee7f](https://github.com/anurag3407/career-pilot/commit/4c8ee7f90a41c90455fa4de4d110f14bbd49daf7))
+
+# [1.142.0](https://github.com/anurag3407/career-pilot/compare/v1.141.0...v1.142.0) (2026-06-04)
+
+
+### Features
+
+* add adaptive interview difficulty progression system ([0764b6f](https://github.com/anurag3407/career-pilot/commit/0764b6f11bfbae065fdd3076caa4353cc588019a))
+* add mock interview weakness analyzer and personalized insights ([df18f47](https://github.com/anurag3407/career-pilot/commit/df18f474ee2b4572f88a1544eb108fff6b487238))
+
+# [1.141.0](https://github.com/anurag3407/career-pilot/compare/v1.140.0...v1.141.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* resolve TemplateGallery preview rendering ([02ebbfc](https://github.com/anurag3407/career-pilot/commit/02ebbfc1b57ef786f6080b7999a96be435956f5e))
+
+
+### Features
+
+* add communication and confidence analysis dashboard ([7e86bd2](https://github.com/anurag3407/career-pilot/commit/7e86bd2bc12b74f9a91a669a1254fadcdda2c704))
+
+# [1.140.0](https://github.com/anurag3407/career-pilot/compare/v1.139.0...v1.140.0) (2026-06-04)
+
+
+### Features
+
+* add learning resource recommendations based on interview feedback ([ff5e539](https://github.com/anurag3407/career-pilot/commit/ff5e5399b18013e7b4e3982dbeee233e24eb9382))
+
 # [1.139.0](https://github.com/anurag3407/career-pilot/compare/v1.138.0...v1.139.0) (2026-06-04)
 
 
