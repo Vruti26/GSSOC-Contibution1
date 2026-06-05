@@ -1,3 +1,10 @@
+## [1.163.1](https://github.com/anurag3407/career-pilot/compare/v1.163.0...v1.163.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* refactor Crystal_Cavern template components for safety and stability ([18c2725](https://github.com/anurag3407/career-pilot/commit/18c2725f9f96ee13a0b59cf50bfcc957b5891965))
+
 # [1.163.0](https://github.com/anurag3407/career-pilot/compare/v1.162.1...v1.163.0) (2026-06-05)
 
 
