@@ -13,24 +13,32 @@ export default function Projects() {
       description: "AI-powered career guidance and portfolio platform.",
       tech: ["React", "Node.js", "MongoDB"],
       status: "DEPLOYED",
+      github: "#",
+      live: "#",
     },
     {
       name: "Nyay Setu",
       description: "Legal assistance platform for citizens.",
       tech: ["React", "Express", "Firebase"],
       status: "ACTIVE",
+      github: "#",
+      live: "#",
     },
     {
       name: "KampusKart",
       description: "Campus marketplace for students.",
       tech: ["React", "Tailwind", "Supabase"],
       status: "RUNNING",
+      github: "#",
+      live: "#",
     },
     {
       name: "DailyForge",
       description: "Productivity and habit tracking application.",
       tech: ["Next.js", "TypeScript", "MongoDB"],
       status: "BUILDING",
+      github: "#",
+      live: "#",
     },
   ];
 
@@ -90,15 +98,23 @@ export default function Projects() {
                 </div>
 
                 <div className="mt-5 flex gap-3">
-                  <button className="flex items-center gap-2 rounded-lg border border-green-500/30 px-3 py-2 text-sm text-green-400 transition hover:bg-green-500/10">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-lg border border-green-500/30 px-3 py-2 text-sm text-green-400 transition hover:bg-green-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                     <Github size={15} />
                     Source
-                  </button>
+                  </a>
 
-                  <button className="flex items-center gap-2 rounded-lg border border-green-500/30 px-3 py-2 text-sm text-green-400 transition hover:bg-green-500/10">
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-lg border border-green-500/30 px-3 py-2 text-sm text-green-400 transition hover:bg-green-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                     <ExternalLink size={15} />
                     Live
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
