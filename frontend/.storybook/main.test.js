@@ -1,7 +1,8 @@
 // frontend/.storybook/main.test.js
 // Unit tests for Visual Regression Testing Setup
 
-const { visualRegressionUtils } = require('./main');
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { visualRegressionUtils } from './main';
 
 describe('Visual Regression Testing - Core Logic', () => {
 
@@ -23,14 +24,14 @@ describe('Visual Regression Testing - Core Logic', () => {
   // Test 2: Retry logic
   describe('retryTest', () => {
     it('should return result on first success', async () => {
-      const mockTest = jest.fn().mockResolvedValue('success');
+      const mockTest = vi.fn().mockResolvedValue('success');
       const result = await visualRegressionUtils.retryTest(mockTest);
       expect(result).toBe('success');
       expect(mockTest).toHaveBeenCalledTimes(1);
     });
 
     it('should retry on failure and eventually succeed', async () => {
-      const mockTest = jest.fn()
+      const mockTest = vi.fn()
         .mockRejectedValueOnce(new Error('fail'))
         .mockResolvedValue('success');
       const result = await visualRegressionUtils.retryTest(mockTest);
@@ -39,9 +40,15 @@ describe('Visual Regression Testing - Core Logic', () => {
     });
 
     it('should throw error after max retries', async () => {
-      const mockTest = jest.fn().mockRejectedValue(new Error('always fails'));
+      const mockTest = vi.fn().mockRejectedValue(new Error('always fails'));
       await expect(visualRegressionUtils.retryTest(mockTest, 3))
         .rejects.toThrow('Test failed after 3 retries');
+    });
+
+    it('should handle retries less than 1', async () => {
+      const mockTest = vi.fn().mockResolvedValue('success');
+      const result = await visualRegressionUtils.retryTest(mockTest, 0);
+      expect(result).toBe('success');
     });
   });
 
@@ -61,4 +68,4 @@ describe('Visual Regression Testing - Core Logic', () => {
     });
   });
 
-}); 
+});

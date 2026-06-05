@@ -12,17 +12,10 @@ const config = {
     options: {},
   },
 
-  // Core visual regression testing logic
-  async viteFinalConfig(config) {
+  async viteFinal(config) {
     try {
       return {
         ...config,
-        define: {
-          ...config.define,
-          'process.env.CHROMATIC_PROJECT_TOKEN': JSON.stringify(
-            process.env.CHROMATIC_PROJECT_TOKEN || ''
-          ),
-        },
       };
     } catch (error) {
       console.error('Storybook config error:', error.message);
@@ -32,8 +25,7 @@ const config = {
 };
 
 // Visual regression testing utilities
-const visualRegressionUtils = {
-  // Check if Chromatic token is configured
+export const visualRegressionUtils = {
   validateChromaticToken() {
     try {
       const token = process.env.CHROMATIC_PROJECT_TOKEN;
@@ -48,8 +40,8 @@ const visualRegressionUtils = {
     }
   },
 
-  // Retry logic for flaky tests
   async retryTest(testFn, retries = 3) {
+    if (retries < 1) retries = 1;
     for (let i = 0; i < retries; i++) {
       try {
         return await testFn();
@@ -62,7 +54,6 @@ const visualRegressionUtils = {
     }
   },
 
-  // Baseline screenshot management
   getBaselineConfig() {
     try {
       return {
@@ -77,4 +68,4 @@ const visualRegressionUtils = {
   },
 };
 
-module.exports = { ...config, visualRegressionUtils };
+export default config;
