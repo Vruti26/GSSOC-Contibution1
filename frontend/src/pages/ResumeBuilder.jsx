@@ -69,8 +69,51 @@ export default function ResumeBuilder() {
   const [skills, setSkills] = useState('')
   const [resumeScore, setResumeScore] = useState(0)
   const [recommendedSections, setRecommendedSections] = useState([])
+  const [atsScore, setAtsScore] = useState(0)
+  const [missingKeywords, setMissingKeywords] = useState([])
   const [resumeVersions, setResumeVersions] = useState([])
   const [selectedVersion, setSelectedVersion] = useState(null)
+
+  useEffect(() => {
+  const keywords = [
+    "React",
+    "JavaScript",
+    "Git",
+    "Node.js",
+    "API",
+    "Leadership",
+    "Teamwork",
+    "Problem Solving"
+  ]
+
+  const resumeText = `
+    ${personal.summary}
+    ${skills}
+    ${projects.map(p => p.description).join(" ")}
+    ${experience.map(e => e.description).join(" ")}
+  `.toLowerCase()
+
+  const foundKeywords = keywords.filter(keyword =>
+    resumeText.includes(keyword.toLowerCase())
+  )
+
+  const missing = keywords.filter(
+    keyword => !foundKeywords.includes(keyword)
+  )
+
+  setMissingKeywords(missing)
+
+  setAtsScore(
+    Math.round(
+      (foundKeywords.length / keywords.length) * 100
+    )
+  )
+}, [
+  personal,
+  skills,
+  projects,
+  experience
+])
 
 useEffect(() => {
   const recommendations = []
