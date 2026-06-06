@@ -1,3 +1,10 @@
+# [1.177.0](https://github.com/anurag3407/career-pilot/compare/v1.176.0...v1.177.0) (2026-06-06)
+
+
+### Features
+
+* add personalized portfolio theme recommendation engine ([0dca938](https://github.com/anurag3407/career-pilot/commit/0dca9384a8a9be06ab1767ac8f5fa07d8b257fac))
+
 # [1.176.0](https://github.com/anurag3407/career-pilot/compare/v1.175.0...v1.176.0) (2026-06-06)
 
 
