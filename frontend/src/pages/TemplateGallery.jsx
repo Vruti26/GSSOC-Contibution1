@@ -31,6 +31,7 @@ import PlanetaryOrbit from "../components/portfolio/templates/Planetary_Orbit/in
 import LowPolyTerrain from "../components/portfolio/templates/Low_Poly_Terrain/index";
 import HighFashion from "../components/portfolio/templates/High_Fashion/index";
 
+
 /* TemplatePreviewFrame — contains each full portfolio template in a
    sandboxed scrollable box. The key trick: CSS `transform` on the outer
    wrapper makes it the "containing block" for any position:fixed children,
@@ -166,7 +167,9 @@ const TemplateHeroPreview = ({ templateId, portfolioData }) => {
   if (!templateId) return null;
   return (
     <Suspense fallback={<div className="w-full h-full bg-muted/50" />}>
-      <Component portfolioData={portfolioData} />
+      <PortfolioProvider portfolioData={portfolioData}>
+        <Component portfolioData={portfolioData} />
+      </PortfolioProvider>
     </Suspense>
   );
 };
@@ -798,6 +801,7 @@ export default function TemplateGallery() {
         </div>
 
       </div>
+
     </div>
   );
 }

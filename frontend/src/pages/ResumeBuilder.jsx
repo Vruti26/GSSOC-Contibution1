@@ -50,6 +50,8 @@ export default function ResumeBuilder() {
   const [targetRole, setTargetRole]   = useState('')
   const [readabilityScore, setReadabilityScore] = useState(0)
   const [claritySuggestions, setClaritySuggestions] = useState([])
+  const [achievementScore, setAchievementScore] = useState(0)
+  const [achievementSuggestions, setAchievementSuggestions] = useState([])
 
   // ── form state ──────────────────────────────────────────────────────────────
   const [personal, setPersonal] = useState({
@@ -75,6 +77,36 @@ export default function ResumeBuilder() {
   const [missingKeywords, setMissingKeywords] = useState([])
   const [resumeVersions, setResumeVersions] = useState([])
   const [selectedVersion, setSelectedVersion] = useState(null)
+
+  useEffect(() => {
+  const suggestions = []
+  let score = 100
+
+  const descriptions = experience.map(exp => exp.description).join(" ")
+
+  if (!/\d+%|\d+\+|\$\d+/g.test(descriptions)) {
+    score -= 25
+    suggestions.push("Add measurable metrics such as percentages, revenue, or growth numbers.")
+  }
+
+  if (!/(led|developed|implemented|created|optimized|improved)/i.test(descriptions)) {
+    score -= 20
+    suggestions.push("Use stronger action verbs to describe achievements.")
+  }
+
+  if (descriptions.length < 100) {
+    score -= 15
+    suggestions.push("Provide more detailed achievement descriptions.")
+  }
+
+  if (!/(resulted|increased|reduced|improved|achieved)/i.test(descriptions)) {
+    score -= 20
+    suggestions.push("Highlight outcomes and business impact.")
+  }
+
+  setAchievementScore(Math.max(score, 0))
+  setAchievementSuggestions(suggestions)
+}, [experience])
 
   useEffect(() => {
   const content = [
@@ -853,6 +885,7 @@ useEffect(() => {
       /* ── Step 5: Preview ── */
       case 5:
         return (
+
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold mb-6">Preview &amp; Generate</h2>
             <div className="flex justify-end mb-4">
@@ -862,6 +895,38 @@ useEffect(() => {
   >
     Save Version
   </button>
+</div>
+<div className="mb-6 p-4 rounded-xl border border-border bg-background/50">
+  <div className="flex justify-between items-center mb-2">
+    <h3 className="font-semibold">
+      Achievement Impact Score
+    </h3>
+
+    <span className="text-primary font-bold">
+      {achievementScore}/100
+    </span>
+  </div>
+
+  <div className="w-full bg-secondary rounded-full h-3">
+    <div
+      className="bg-primary h-3 rounded-full transition-all"
+      style={{ width: `${achievementScore}%` }}
+    />
+  </div>
+
+  {achievementSuggestions.length > 0 && (
+    <div className="mt-4">
+      <h4 className="font-medium mb-2">
+        Improvement Suggestions
+      </h4>
+
+      <ul className="list-disc list-inside text-sm text-muted-foreground">
+        {achievementSuggestions.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  )}
 </div>
             <div className="mb-6 p-4 rounded-xl border border-border bg-background/50">
   <div className="flex justify-between items-center mb-2">

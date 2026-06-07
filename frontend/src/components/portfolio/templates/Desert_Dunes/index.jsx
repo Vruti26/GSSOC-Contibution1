@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence, useInView } from 'framer-motion';
 
 import data from '../../../../data/dummy_data.json';
 import {
@@ -294,7 +293,7 @@ function SectionLabel({ children, light = false }) {
 /* ─────────────────────────────────────────────
    NAV
 ───────────────────────────────────────────── */
-function Nav() {
+function Nav({ data }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -2531,7 +2530,7 @@ export default function DesertDunes() {
     <>
       <GlobalStyles />
       <div style={{ fontFamily: fontSans, overflowX: 'hidden' }}>
-        <Nav />
+        <Nav data={data} />
         <Hero />
         <About />
         <Skills />

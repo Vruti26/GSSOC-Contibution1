@@ -1,4 +1,57 @@
 export const templates = [
+   
+{
+  "id": "Eye_Tracking_Heatmap_Simulation",
+  "title": "Eye Tracking Heatmap Simulation",
+  "category": "Portfolio",
+  "colorScheme": "Dark",
+  "layout": "Fullscreen",
+  "author": "System",
+  "views": 0,
+  "rating": 0,
+  "image": "/template-previews/Eye_Tracking_Heatmap_Simulation.png",
+  "createdAt": "2026-06-07",
+  "isComplete": true
+},
+  {
+    "id": "Live_Satellite_Imagery_Feed",
+    "title": "Live Satellite Imagery Feed",
+    "category": "Portfolio",
+    "colorScheme": "Dark",
+    "layout": "Dashboard",
+    "author": "System",
+    "views": 1300,
+    "rating": 4.9,
+    "image": "/templates/Live_Satellite_Imagery_Feed.png",
+    "createdAt": "2026-06-07",
+    "isComplete": true
+  },
+  {
+    "id": "Broken_Glass_Shards_Parallax",
+    "title": "Broken Glass Shards Parallax",
+    "category": "Portfolio",
+    "colorScheme": "Dark",
+    "layout": "Parallax",
+    "author": "System",
+    "views": 1000,
+    "rating": 5.0,
+    "image": "/templates/Broken_Glass_Shards_Parallax.png",
+    "createdAt": "2026-06-07",
+    "isComplete": true
+  },
+  {
+    "id": "Interactive_Table_of_Elements",
+    "title": "Interactive Table of Elements",
+    "category": "Portfolio",
+    "colorScheme": "Dark",
+    "layout": "Grid",
+    "author": "System",
+    "views": 1000,
+    "rating": 5.0,
+    "image": "/templates/Interactive_Table_of_Elements.png",
+    "createdAt": "2026-06-06",
+    "isComplete": true
+  },
   {
   "id": "Vercel_Deploy",
   "title": "Vercel Deploy",
@@ -1038,6 +1091,18 @@ export const templates = [
     "rating": 4.5,
     "image": "/template-previews/Infinite_Canvas.png",
     "createdAt": "2026-05-01"
+  },
+  {
+    "id": "Error_404_Infinite_Gallery",
+    "title": "Error 404 Infinite Gallery",
+    "category": "Portfolio",
+    "colorScheme": "Dark",
+    "layout": "Interactive",
+    "author": "System",
+    "views": 1086,
+    "rating": 4.5,
+    "image": "/templates/Error_404_Infinite_Gallery.png",
+    "createdAt": "2026-06-06"
   },
   {
     "id": "Japanese_Zen",
@@ -2454,5 +2519,17 @@ export const templates = [
     "rating": 4.5,
     "image": "/template-previews/Zoom_Into_Work.png",
     "createdAt": "2026-05-01"
+  },
+  {
+    "id": "Underground_Bunker_Console",
+    "title": "Underground Bunker Console",
+    "category": "Portfolio",
+    "colorScheme": "Dark",
+    "layout": "Interactive",
+    "author": "System",
+    "views": 0,
+    "rating": 4.5,
+    "image": "/template-previews/Underground_Bunker_Console.svg",
+    "createdAt": "2026-06-06"
   }
 ];
