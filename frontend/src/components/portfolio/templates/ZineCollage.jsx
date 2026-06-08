@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function ZineCollage({ data }) {
-  // 🔒 100% Anonymous generic fallback data for public open-source safety
+// Accept both portfolioData (global contract) and data (fallback)
+export default function ZineCollage({ data, portfolioData }) {
+  
+  // 🔒 Safe anonymous template fallbacks
   const localDefault = {
     personal: {
       name: "Alex Morgan",
@@ -34,20 +36,26 @@ export default function ZineCollage({ data }) {
         technologies: ["JavaScript", "Web Audio API", "CSS Grid"]
       }
     ],
-    skills: ["React.js", "Tailwind CSS", "JavaScript (ES6+)", "Framer Motion", "UI/UX Design", "Git & GitHub", "Node.js", "Web APIs"]
+    skills: ["React.js", "Tailwind CSS", "JavaScript (ES6+)", "Framer Motion", "UI/UX Design", "Git & GitHub", "Node.js"]
   };
 
-  const profile = data && Object.keys(data).length > 0 ? data : localDefault;
-  const { personal = {}, experience = [], projects = [], skills = [] } = profile;
+  // 🔄 Normalize incoming props contract
+  const incoming = portfolioData || data || {};
+
+  // 🧩 CodeAnt Fix: Section-by-section default merging instead of all-or-nothing
+  const personal = incoming.personal && Object.keys(incoming.personal).length > 0 ? incoming.personal : localDefault.personal;
+  const experience = incoming.experience && incoming.experience.length > 0 ? incoming.experience : localDefault.experience;
+  const projects = incoming.projects && incoming.projects.length > 0 ? incoming.projects : localDefault.projects;
+  const skills = incoming.skills && incoming.skills.length > 0 ? incoming.skills : localDefault.skills;
 
   return (
     <div className="min-h-screen bg-[#f4ebd0] text-[#1e1e1e] font-mono p-6 md:p-12 selection:bg-black selection:text-white">
       
       {/* 📰 HEADER MASTHEAD */}
       <header className="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-5xl mx-auto mb-12 -rotate-1">
-        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">{personal.name}</h1>
+        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">{personal.name || "Alex Morgan"}</h1>
         <p className="text-lg md:text-xl font-bold border-t-2 border-black mt-4 pt-2 tracking-tight">
-          {personal.title} // VOL. 01
+          {personal.title || "Creative Developer"} // VOL. 01
         </p>
       </header>
 

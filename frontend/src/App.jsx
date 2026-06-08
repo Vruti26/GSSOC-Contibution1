@@ -254,9 +254,7 @@ function AppRoutes() {
 
         
 
-        <Route path="/templates/chatbot" element={<ChatbotPortfolio />} />
-
-        {/* <Route path="/templates/day-night-cycle" element={<DayNightCycle />} /> */}
+               {/* <Route path="/templates/day-night-cycle" element={<DayNightCycle />} /> */}
         <Route path="/templates/rainforest-canopy" element={<RainforestCanopy />} />
         <Route path="/templates/northern-fjords" element={<NorthernFjords />} />
         <Route path="/templates/duotone-bold" element={<DuotoneBold />} />
