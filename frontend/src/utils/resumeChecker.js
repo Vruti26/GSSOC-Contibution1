@@ -1,43 +1,42 @@
-// frontend/src/utils/resumeChecker.js
+// Configuration Constants for Validation Integrity
+const MIN_BULLET_LENGTH = 10;
+const NORMALIZE_REGEX = /[^a-z0-9\s]/g;
 
 export class ResumeConsistencyChecker {
-  /**
-   * 1. Date Format Validation
-   * Detects if the user mixes numeric "MM/YYYY" with text-based "Month YYYY" expressions.
-   */
   static checkDateConsistency(dateStrings = []) {
-    const errors = [];
-    let hasNumericFormat = false; // e.g., "08/2024"
-    let hasTextualFormat = false; // e.g., "August 2024" or "Jan 2024"
+    let hasNumericFormat = false;
+    let hasTextualFormat = false;
 
-    const numericRegex = /^\d{2}\/\d{4}$/;
-    const textualRegex = /^[A-Za-z]+\s+\d{4}$/;
+    // Matches YYYY-MM (HTML5 default), MM/YYYY, or M/YYYY digits
+    const numericRegex = /^(\d{4}-\d{2}|\d{1,2}\/\d{4})$/;
+    // Matches full or abbreviated month names followed by a 4-digit year
+    const textualRegex = /^(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|september|oct|october|nov|november|dec|december)\s+\d{4}$/i;
+    // Bypasses isolated years or active status indicators
+    const ignoreRegex = /^(\d{4}|present|current)$/i;
 
     dateStrings.forEach(dateStr => {
       if (!dateStr) return;
-      const trimmed = dateStr.trim();
+      const trimmed = dateStr.trim().toLowerCase();
+      
+      if (ignoreRegex.test(trimmed)) return;
       if (numericRegex.test(trimmed)) hasNumericFormat = true;
       if (textualRegex.test(trimmed)) hasTextualFormat = true;
     });
 
+    const errors = [];
     if (hasNumericFormat && hasTextualFormat) {
       errors.push({
         type: 'date',
-        message: 'Mixed date formatting detected. Uniformly use either numeric (MM/YYYY) or text (Month YYYY) formats.',
-        severity: 'warning'
+        message: 'Inconsistent date formatting discovered. Maintain uniform timeline notation schemas across all entries (e.g., choose either "08/2024" or "August 2024").',
+        severity: 'error',
+        offendingText: dateStrings.filter(Boolean).join(' | ')
       });
     }
-
     return errors;
   }
 
-  /**
-   * 2. Bullet Point Verb Tense Checker
-   * Checks if historical roles accidentally mix in present-tense verbs at the start of sentences.
-   */
   static checkTenseConsistency(pastRoleBullets = []) {
     const errors = [];
-    // Common present-tense verbs that shouldn't lead historical entries
     const presentTenseIndicators = /\b(develop|design|create|manage|lead|write|build|implement)s?\b/i;
 
     pastRoleBullets.forEach(bullet => {
@@ -56,28 +55,24 @@ export class ResumeConsistencyChecker {
     return errors;
   }
 
-  /**
-   * 3. Duplicate Content Detection
-   * Catches copy-pasted text blocks or heavily repeated descriptions across sections.
-   */
-  static checkDuplicateContent(allBullets = []) {
+  static checkDuplicateContent(textEntries = []) {
     const errors = [];
-    const seenPhrases = new Set();
+    const seenHashes = new Map();
 
-    allBullets.forEach(bullet => {
+    textEntries.forEach(bullet => {
       if (!bullet) return;
-      const normalized = bullet.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '');
-      if (normalized.length < 10) return; // Skip short fragments
+      const normalized = bullet.trim().toLowerCase().replace(NORMALIZE_REGEX, '');
+      if (normalized.length < MIN_BULLET_LENGTH) return;
 
-      if (seenPhrases.has(normalized)) {
+      if (seenHashes.has(normalized)) {
         errors.push({
           type: 'duplicate',
-          message: 'Duplicate statement found. Avoid using identical descriptions across separate sections.',
-          severity: 'error',
+          message: 'Identical phrasing schema flagged across entries. Vary your action text descriptions to expand overall lexical scanning impact scores.',
+          severity: 'warning',
           offendingText: bullet
         });
       } else {
-        seenPhrases.add(normalized);
+        seenHashes.set(normalized, true);
       }
     });
 

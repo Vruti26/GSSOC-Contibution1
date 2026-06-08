@@ -139,105 +139,76 @@ export default function ResumeBuilder() {
   setClaritySuggestions(suggestions)
 }, [personal, experience, projects])
 
+ // ─────────────────── ATS Keyword Assessment Loop ───────────────────
   useEffect(() => {
-  const keywords = [
-    "React",
-    "JavaScript",
-    "Git",
-    "Node.js",
-    "API",
-    "Leadership",
-    "Teamwork",
-    "Problem Solving"
-  ]
+    const resumeText = `
+      ${personal?.summary || ''}
+      ${skills || ''}
+      ${(projects || []).map(p => p.description).join(" ")}
+      ${(experience || []).map(e => e.description).join(" ")}
+    `.toLowerCase();
 
-  // ─────────────────── Live Consistency Assessment Calculations ───────────────────
-  // A. Extract all dates across experience timeline structures
-  const allExperienceDates = experience.flatMap(exp => [exp.startDate, exp.endDate]);
-  const allEducationDates = education.flatMap(edu => [edu.startDate, edu.endDate]);
-  const aggregatedTimelineDates = [...allExperienceDates, ...allEducationDates];
+    const foundKeywords = keywords.filter(keyword =>
+      resumeText.includes(keyword.toLowerCase())
+    );
 
-  // B. Extract and isolate description strings for structural parsing
-  const pastExperienceBullets = experience.map(exp => exp.description || '');
-  const projectDescriptions = projects.map(p => p.description || '');
-  const aggregatedTextDescriptions = [...pastExperienceBullets, ...projectDescriptions];
+    const missing = keywords.filter(
+      keyword => !foundKeywords.includes(keyword)
+    );
 
-  // C. Execute regular expression consistency loops
-  const dateValidationErrors = ResumeConsistencyChecker.checkDateConsistency(aggregatedTimelineDates);
-  const tenseValidationErrors = ResumeConsistencyChecker.checkTenseConsistency(pastExperienceBullets);
-  const redundancyValidationErrors = ResumeConsistencyChecker.checkDuplicateContent(aggregatedTextDescriptions);
+    setMissingKeywords(missing);
 
-  // D. Combine all findings into a unified matrix array
-  const activeConsistencyWarnings = [
-    ...dateValidationErrors,
-    ...tenseValidationErrors,
-    ...redundancyValidationErrors
-  ];
+    if (keywords.length > 0) {
+      setAtsScore(
+        Math.round((foundKeywords.length / keywords.length) * 100)
+      );
+    }
+  }, [personal, skills, projects, experience, keywords]);
 
-  const resumeText = `
-    ${personal.summary}
-    ${skills}
-    ${projects.map(p => p.description).join(" ")}
-    ${experience.map(e => e.description).join(" ")}
-  `.toLowerCase()
+  // ─────────────────── Live Consistency Memoized Engine ───────────────────
+  const activeConsistencyWarnings = React.useMemo(() => {
+    const allExperienceDates = (experience || []).flatMap(exp => [exp.startDate, exp.endDate]);
+    const allEducationDates = (education || []).flatMap(edu => [edu.startDate, edu.endDate]);
+    const aggregatedTimelineDates = [...allExperienceDates, ...allEducationDates];
 
-  const foundKeywords = keywords.filter(keyword =>
-    resumeText.includes(keyword.toLowerCase())
-  )
+    // Filter out current roles so ongoing present-tense verbs aren't flagged as bugs
+    const pastExperienceBullets = (experience || [])
+      .filter(exp => !exp.current)
+      .map(exp => exp.description || '');
 
-  const missing = keywords.filter(
-    keyword => !foundKeywords.includes(keyword)
-  )
+    const projectDescriptions = (projects || []).map(p => p.description || '');
+    const aggregatedTextDescriptions = [...pastExperienceBullets, ...projectDescriptions];
 
-  setMissingKeywords(missing)
+    const dateValidationErrors = ResumeConsistencyChecker.checkDateConsistency(aggregatedTimelineDates);
+    const tenseValidationErrors = ResumeConsistencyChecker.checkTenseConsistency(pastExperienceBullets);
+    const redundancyValidationErrors = ResumeConsistencyChecker.checkDuplicateContent(aggregatedTextDescriptions);
 
-  setAtsScore(
-    Math.round(
-      (foundKeywords.length / keywords.length) * 100
-    )
-  )
-}, [
-  personal,
-  skills,
-  projects,
-  experience
-])
+    return [
+      ...dateValidationErrors,
+      ...tenseValidationErrors,
+      ...redundancyValidationErrors
+    ];
+  }, [experience, education, projects]);
 
-// ─────────────────── Live Consistency Assessment Calculations ───────────────────
-  // 1. Gather all timeline date strings to pass to the regex formatter
-  const allExperienceDates = (experience || []).flatMap(exp => [exp.startDate, exp.endDate]);
-  const allEducationDates = (education || []).flatMap(edu => [edu.startDate, edu.endDate]);
-  const aggregatedTimelineDates = [...allExperienceDates, ...allEducationDates];
+  // ─────────────────── Version Tracking State Control ───────────────────
+  const [resumeVersions, setResumeVersions] = React.useState([]);
 
-  // 2. Extract description text entries for tense/redundancy scans
-  const pastExperienceBullets = (experience || []).map(exp => exp.description || '');
-  const projectDescriptions = (projects || []).map(p => p.description || '');
-  const aggregatedTextDescriptions = [...pastExperienceBullets, ...projectDescriptions];
-
-  // 3. Compute live validation passes using our custom utility engine
-  const dateValidationErrors = ResumeConsistencyChecker.checkDateConsistency(aggregatedTimelineDates);
-  const tenseValidationErrors = ResumeConsistencyChecker.checkTenseConsistency(pastExperienceBullets);
-  const redundancyValidationErrors = ResumeConsistencyChecker.checkDuplicateContent(aggregatedTextDescriptions);
-
-  // 4. Group all warnings into the unified array variable that line 1184 expects
-  const activeConsistencyWarnings = [
-    ...dateValidationErrors,
-    ...tenseValidationErrors,
-    ...redundancyValidationErrors
-  ];
-
-  // Temporary mock function to prevent Step 5 from crashing
-  const saveVersion = () => {
+  const saveVersion = React.useCallback(() => {
+    const newVersion = {
+      id: Date.now(),
+      timestamp: new Date().toLocaleString(),
+      content: typeof generateMarkdown === 'function' ? generateMarkdown() : "",
+    };
+    setResumeVersions(prev => [newVersion, ...prev]);
     if (typeof toast !== 'undefined') {
       toast.success("Resume version layout tracked successfully!");
-    } else {
-      console.log("saveVersion triggered successfully");
     }
-  };
+  }, [experience, education, projects, personal, skills, generateMarkdown]);
 
-useEffect(() => {
-  const recommendations = []
-
+  // ─────────────────── Automated Recommendations Engine ───────────────────
+  useEffect(() => {
+    const recommendations = [];
+    
   if (projects.every(p => !p.name.trim())) {
     recommendations.push("Projects")
   }
