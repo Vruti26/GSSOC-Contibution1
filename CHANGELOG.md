@@ -1,3 +1,10 @@
+# [1.205.0](https://github.com/anurag3407/career-pilot/compare/v1.204.0...v1.205.0) (2026-06-09)
+
+
+### Features
+
+* **portfolio:** add Anonymous Whistleblower Drop Box template ([5551cc7](https://github.com/anurag3407/career-pilot/commit/5551cc75221b7be4fcfc983d638a5b96152f75dc))
+
 # [1.204.0](https://github.com/anurag3407/career-pilot/compare/v1.203.0...v1.204.0) (2026-06-09)
 
 
