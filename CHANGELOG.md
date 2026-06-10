@@ -1,3 +1,10 @@
+# [1.208.0](https://github.com/anurag3407/career-pilot/compare/v1.207.0...v1.208.0) (2026-06-10)
+
+
+### Features
+
+* implement premium monochrome scratch-to-reveal canvas template ([4ef4b3e](https://github.com/anurag3407/career-pilot/commit/4ef4b3e46f64c40dc535837fda84cfb1b59d7107))
+
 # [1.207.0](https://github.com/anurag3407/career-pilot/compare/v1.206.1...v1.207.0) (2026-06-10)
 
 
