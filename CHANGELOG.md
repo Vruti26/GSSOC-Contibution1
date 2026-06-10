@@ -1,4 +1,5 @@
 # [1.1.0](https://github.com/Gurkaran18/career-pilot/compare/v1.0.2...v1.1.0) (2026-06-10)
+## [1.211.2](https://github.com/anurag3407/career-pilot/compare/v1.211.1...v1.211.2) (2026-06-10)
 
 
 ### Bug Fixes
@@ -16,6 +17,16 @@
 * remove unauthenticated request bypass from aiRateLimiter ([9e41a14](https://github.com/Gurkaran18/career-pilot/commit/9e41a14e9948f1e7d2dbe3b97db0539caedac441)), closes [#3379](https://github.com/Gurkaran18/career-pilot/issues/3379)
 * resolve CSP middleware merge conflict ([e85ed6d](https://github.com/Gurkaran18/career-pilot/commit/e85ed6df17fc2ac272ee73c5229fc42d13b26515))
 * resolve syntax error and duplicate entries in templates.js ([087dcf4](https://github.com/Gurkaran18/career-pilot/commit/087dcf4028a8094439307935678b560d89ed58ae))
+* add 50,000 char limit on resumeText to prevent API credit drain & DoS ([2f8b092](https://github.com/anurag3407/career-pilot/commit/2f8b092d2be4dcab0b9e7bdb54ec4afa244e58ea))
+
+## [1.211.1](https://github.com/anurag3407/career-pilot/compare/v1.211.0...v1.211.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* replace dead Proxy checks with env var guards in paymentService.js ([8226003](https://github.com/anurag3407/career-pilot/commit/8226003097db5da2d27fd390569fb9caad98dfca))
+
+# [1.211.0](https://github.com/anurag3407/career-pilot/compare/v1.210.0...v1.211.0) (2026-06-10)
 
 
 ### Features
@@ -59,6 +70,32 @@
 * remove unauthenticated request bypass from aiRateLimiter ([9e41a14](https://github.com/Gurkaran18/career-pilot/commit/9e41a14e9948f1e7d2dbe3b97db0539caedac441)), closes [#3379](https://github.com/Gurkaran18/career-pilot/issues/3379)
 * resolve CSP middleware merge conflict ([e85ed6d](https://github.com/Gurkaran18/career-pilot/commit/e85ed6df17fc2ac272ee73c5229fc42d13b26515))
 * resolve syntax error and duplicate entries in templates.js ([087dcf4](https://github.com/Gurkaran18/career-pilot/commit/087dcf4028a8094439307935678b560d89ed58ae))
+* add Cloud Nine Aerial Skyscape portfolio template ([fe102a4](https://github.com/anurag3407/career-pilot/commit/fe102a41f5889bf7994c4ce3935b6a9baed76912))
+
+# [1.210.0](https://github.com/anurag3407/career-pilot/compare/v1.209.0...v1.210.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* address linter warnings and add JSDoc to MobileKanban ([32888a9](https://github.com/anurag3407/career-pilot/commit/32888a9d2e50b15b276946aa01dbf81f341109c4))
+* use undefined check for isControlled, add drag-and-drop tests ([dcb75fd](https://github.com/anurag3407/career-pilot/commit/dcb75fd95e19b5f995c65c43f6f6d4a0aed3662e))
+* use undefined check in useEffect guard for consistency with isControlled ([fc0286f](https://github.com/anurag3407/career-pilot/commit/fc0286f570b2d0c3f71412817ffcf6377ef2a225))
+
+
+### Features
+
+* add Magnifying Glass Hidden Reveal portfolio template ([#3225](https://github.com/anurag3407/career-pilot/issues/3225)) ([0e9bb3c](https://github.com/anurag3407/career-pilot/commit/0e9bb3cf58fbe602610ff29d54e662bc9e35e86c))
+* add touch-friendly MobileKanban component with DnD and offline support ([7703c5a](https://github.com/anurag3407/career-pilot/commit/7703c5ad2b6158d83964ac6a2b6431fe3c9e9655))
+
+# [1.209.0](https://github.com/anurag3407/career-pilot/compare/v1.208.0...v1.209.0) (2026-06-10)
+
+
+### Features
+
+* complete docker setup with secure environment variables ([b051e99](https://github.com/anurag3407/career-pilot/commit/b051e9952e3567bd10aac152adf3bd762c630394))
+* setup docker containerization and fix firebase configuration layout ([5af8740](https://github.com/anurag3407/career-pilot/commit/5af87405471a8a8f960f2297a14c8879ae6a4a82))
+
+# [1.208.0](https://github.com/anurag3407/career-pilot/compare/v1.207.0...v1.208.0) (2026-06-10)
 
 
 ### Features
@@ -83,6 +120,7 @@
 * **portfolio:** add About section for Origami Paper theme ([3f08a1a](https://github.com/Gurkaran18/career-pilot/commit/3f08a1a29cca8895eb26d3e7f36401d7e21b38f5))
 * **portfolio:** add Anonymous Whistleblower Drop Box template ([5551cc7](https://github.com/Gurkaran18/career-pilot/commit/5551cc75221b7be4fcfc983d638a5b96152f75dc))
 * **portfolio:** add Infinite Zoom Mandelbrot Set template ([114e4e9](https://github.com/Gurkaran18/career-pilot/commit/114e4e909437fb1f90aed3b687ae0f4b94d513de))
+* implement premium monochrome scratch-to-reveal canvas template ([4ef4b3e](https://github.com/anurag3407/career-pilot/commit/4ef4b3e46f64c40dc535837fda84cfb1b59d7107))
 
 # [1.207.0](https://github.com/anurag3407/career-pilot/compare/v1.206.1...v1.207.0) (2026-06-10)
 
