@@ -298,8 +298,6 @@ export default function LinkedInOptimizer() {
         </motion.div>
 
         {/* Results */}
-<<<<<<< HEAD
-=======
         {loading && (
           <div className="mt-8 space-y-6">
             <div className="flex items-center gap-3 px-5 py-4 bg-blue-500/5 border border-blue-500/20 rounded-xl animate-pulse" role="status" aria-live="polite">
@@ -325,7 +323,6 @@ export default function LinkedInOptimizer() {
           </div>
         )}
 
->>>>>>> 0f1ec290 (feat: announce LinkedIn optimization status for screen readers)
         <AnimatePresence>
           {results && (
             <motion.div
