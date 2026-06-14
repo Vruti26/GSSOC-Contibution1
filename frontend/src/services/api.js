@@ -1643,5 +1643,29 @@ export const adminAPI = {
     const headers = await getAuthHeaders();
     const response = await fetch(`${API_BASE}/admin/users?page=${page}&limit=${limit}`, { headers });
     return handleResponse(response);
+  },
+
+  async getLogins(page = 1, limit = 20) {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${API_BASE}/admin/logins?page=${page}&limit=${limit}`, { headers });
+    return handleResponse(response);
+  }
+};
+
+export const bugsApi = {
+  async submitBug(title, description) {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${API_BASE}/bugs`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ title, description })
+    });
+    return handleResponse(response);
+  },
+
+  async getBugs(page = 1, limit = 20) {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${API_BASE}/bugs?page=${page}&limit=${limit}`, { headers });
+    return handleResponse(response);
   }
 };

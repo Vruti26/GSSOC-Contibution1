@@ -74,6 +74,8 @@ const FellowshipChat = lazy(() => import("./pages/fellowship/FellowshipChat"));
 const AdminLayout = lazy(() => import("./pages/admin/layout/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/views/AdminDashboard"));
 const AdminUsers = lazy(() => import("./pages/admin/views/AdminUsers"));
+const AdminLogins = lazy(() => import("./pages/admin/views/AdminLogins"));
+const AdminBugs = lazy(() => import("./pages/admin/views/AdminBugs"));
 
 import { NotFound } from './pages';
 
@@ -388,10 +390,18 @@ function AppRoutes() {
 
         
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminRoute><Suspense fallback={<LoadingScreen label="Loading Admin..." />}><AdminLayout /></Suspense></AdminRoute>}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="users" element={<AdminUsers />} />
-        </Route>
+        <Route path="/admin" element={
+            <AdminRoute>
+              <Suspense fallback={<LoadingScreen label="Loading Admin..." />}>
+                <AdminLayout />
+              </Suspense>
+            </AdminRoute>
+          }>
+            <Route index element={<AdminDashboard />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="logins" element={<AdminLogins />} />
+            <Route path="bugs" element={<AdminBugs />} />
+          </Route>
 
         {/* Hub Routes */}
         <Route path="/hub/resume" element={<ProtectedRoute><Suspense fallback={<LoadingScreen label="Loading Resume Hub..." />}><ResumeHub /></Suspense></ProtectedRoute>} />
