@@ -1,5 +1,19 @@
 export const templates = [
   {
+    id: "Typewriter_Keystroke_Sequence",
+    title: "Typewriter Keystroke Sequence",
+    category: "Portfolio",
+    colorScheme: "Light",
+    layout: "Scroll",
+    author: "Raman Kumar",
+    views: 9999990,
+    rating: 5.0,
+    image: "/template-previews/Typewriter_Keystroke_Sequence.png",
+    createdAt: "2026-06-15",
+    description: "A vintage typewriter portfolio where your career story is typed live on old manuscript paper — complete with keystroke animations, ink smudges, diary entries, and folded letters.",
+    isComplete: true
+  },
+  {
     id: "Sommelier_Wine_Cellar_Racks",
     title: "Sommelier Wine Cellar Racks",
     category: "Portfolio",
