@@ -327,7 +327,17 @@ useEffect(() => {
   setProfileIssues(issues)
 }, [personal])
 
-const normalizedSkills = typeof skills === "string"? skills.split(",").map(skill => skill.trim()).filter(Boolean) : Array.isArray(skills)? skills : [];
+const normalizedSkills = React.useMemo(() => {
+  if (typeof skills === "string") {
+    return skills.split(",").map(skill => skill.trim()).filter(Boolean);
+  }
+  if (Array.isArray(skills)) {
+    return skills
+      .map(skill => String(skill).trim())
+      .filter(Boolean);
+  }
+  return [];
+}, [skills]);
 
 // ─────────────────── CONSOLIDATED ATS ASSESSMENT LOOP ───────────────────
 useEffect(() => {
@@ -356,8 +366,7 @@ useEffect(() => {
   const score = baseKeywords.length > 0 ? Math.round((found.length / baseKeywords.length) * 100) : 0;
   setAtsScore(score);
 
-}, [personal, normalizedSkills, projects, experience]); // Removed out-of-scope internal variables!
-
+}, [personal, normalizedSkills, projects, experience]);
   // ─────────────────── Live Consistency Memoized Engine ───────────────────
   const activeConsistencyWarnings = React.useMemo(() => {
     const allExperienceDates = (experience || []).flatMap(exp => [exp.startDate, exp.endDate]);
