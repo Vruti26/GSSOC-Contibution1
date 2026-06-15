@@ -92,6 +92,10 @@ export const templates = [
   rating: 0,
   image: "/template-previews/Virtual_Reality_Room_360.png",
   createdAt: "2026-06-12",
+  isComplete: true,
+  },
+  {
+    id: "Vercel_Deploy",
   isComplete: true
   },
   {
