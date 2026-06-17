@@ -1305,6 +1305,22 @@ export const userProfileApi = {
     return handleResponse(response)
   },
 
+  async setMyAvatar(avatarUrl) {
+    const headers = await getAuthHeaders()
+    const response = await fetch(`${API_BASE}/user-profiles/me/avatar`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ avatarUrl })
+    })
+    return handleResponse(response)
+  },
+
+  async deleteMyAvatar() {
+    const headers = await getAuthHeaders()
+    const response = await fetch(`${API_BASE}/user-profiles/me/avatar`, { method: 'DELETE', headers })
+    return handleResponse(response)
+  },
+
   async getProfile(uid) {
     const headers = await getAuthHeaders()
     const response = await fetch(`${API_BASE}/user-profiles/${uid}`, { method: 'GET', headers })
