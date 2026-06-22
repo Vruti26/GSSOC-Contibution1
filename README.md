@@ -578,6 +578,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.
           <sub><b>Mohnish27-dev</b></sub>
         </a>
       </td>
+      <td align="center">
+        <a href="https://github.com/Kaushal00Vaid">
+          <img src="https://github.com/Kaushal00Vaid.png" width="100" style="border-radius: 50%;" alt="Kaushal00Vaid"/><br />
+          <sub><b>Kaushal00Vaid</b></sub>
+        </a>
+      </td>
     </tr>
   </table>
 </div>
